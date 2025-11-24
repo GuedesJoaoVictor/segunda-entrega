@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RootRoutingModule } from './root-routing-module';
+import { RootRoutingModule } from './root.routing.module';
 
 
 @NgModule({
