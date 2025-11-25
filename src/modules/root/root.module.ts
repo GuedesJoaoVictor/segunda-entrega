@@ -1,13 +1,19 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RootRoutingModule } from './root.routing.module';
+import { Component } from '@angular/core';
+import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from '@angular/material/card';
+import {RouterOutlet} from '@angular/router';
 
-
-@NgModule({
-  declarations: [],
+@Component({
+  selector: 'app-root',
   imports: [
-    CommonModule,
-    RootRoutingModule
-  ]
+    MatCard,
+    MatCardHeader,
+    MatCardContent,
+    MatCardTitle,
+    RouterOutlet
+  ],
+  templateUrl: './root-component.html',
+  styleUrl: './root.component.css',
 })
-export class RootModule { }
+export class RootComponent {
+
+}
