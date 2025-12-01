@@ -24,8 +24,8 @@ import { MatOptionModule } from '@angular/material/core';
     MatLabel,
     MatError
   ],
-  templateUrl: './bank-component.html',
-  styleUrl: './bank-component.css',
+  templateUrl: './bank.component.html',
+  styleUrl: './bank.component.css',
 })
 export class BankComponent implements OnInit {
   editing = false;

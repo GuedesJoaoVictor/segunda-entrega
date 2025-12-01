@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {HomeComponent} from './home.component';
 import {DashboardComponent} from './dashboard-component/dashboard.component';
-import {BankComponent} from './aluno-component/bank-component';
+import {BankComponent} from './bank-component/bank.component';
 import {homeGuard} from '../../core/security/home-guard';
 
 const routes: Routes = [

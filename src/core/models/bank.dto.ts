@@ -3,4 +3,5 @@ export class BankDTO {
   name?: string;
   type?: string;
   bank?: BankDTO;
+  vinculoId?: number;
 }
