@@ -1,0 +1,52 @@
+<form class="d-flex flex-column" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-form-field appearance="outline" class="w-100 mb-3">
+    <mat-label>Nome</mat-label>
+    <input matInput type="text" autocomplete="name" formControlName="name">
+    <mat-error *ngIf="form.get('nome')?.hasError('required')">
+      Nome é obrigatório
+    </mat-error>
+    <mat-error *ngIf="form.get('nome')?.hasError('minlength')">
+      Nome deve ter pelo menos 3 caracteres
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="w-100 mb-3">
+    <mat-label>CPF</mat-label>
+    <input matInput
+          type="text"
+          autocomplete="cpf"
+          formControlName="cpf"
+          (input)="maskCPF($event)"
+          placeholder="000.000.000-00">
+    <mat-error>
+      CPF é obrigatório
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="w-100 mb-3">
+    <mat-label>Email</mat-label>
+    <input matInput type="email" autocomplete="email" formControlName="email">
+    <mat-error *ngIf="form.get('email')?.hasError('required')">
+      Email é obrigatório
+    </mat-error>
+    <mat-error *ngIf="form.get('email')?.hasError('email')">
+      Email inválido
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="w-100 mb-3">
+    <mat-label>Senha</mat-label>
+    <input matInput autocomplete="new-password" type="password" formControlName="password">
+    <mat-error *ngIf="form.get('password')?.hasError('required')">
+      Senha é obrigatória
+    </mat-error>
+    <mat-error *ngIf="form.get('password')?.hasError('minlength')">
+      Senha deve ter pelo menos 4 caracteres
+    </mat-error>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit" class="w-100 mb-2" [disabled]="form.invalid">
+    <span>Registrar</span>
+  </button>
+
+  <mat-card-actions class="justify-content-center">
+    <p>Já tem conta? <a routerLink="/login">Fazer login</a></p>
+  </mat-card-actions>
+</form>

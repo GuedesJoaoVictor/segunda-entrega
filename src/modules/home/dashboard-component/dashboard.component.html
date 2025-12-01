@@ -1,0 +1,66 @@
+<div class="dashboard-container">
+  <div class="header-section text-center mb-4">
+    <h1 class="page-title">Dashboard</h1>
+    <p class="page-subtitle text-muted">Bem-vindo ao sistema de Controle de Finanças</p>
+  </div>
+  <div class="action-section mb-4">
+    <div class="d-flex justify-content-between align-items-center">
+      <h3 class="section-title">Seus vínculos bancários</h3>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="abrirModalVinculacao()"
+        class="action-btn">
+        <mat-icon>add</mat-icon>
+        Vincular a um banco
+      </button>
+    </div>
+  </div>
+  <div class="banks-section">
+    @if (banks && banks.length > 0) {
+      <div class="row g-3">
+        @for (userBank of banks; track userBank.id) {
+          <div class="col-md-6 col-lg-4">
+            <mat-card class="bank-card h-100">
+              <mat-card-header class="pb-2">
+                <div class="bank-icon">
+                  <mat-icon>account_balance</mat-icon>
+                </div>
+                <mat-card-title class="bank-title">{{ userBank.name }}</mat-card-title>
+                <mat-card-subtitle class="bank-subtitle">Vínculo ativo</mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-actions class="pt-2">
+                <button
+                  mat-button
+                  color="warn"
+                  class="action-button"
+                  (click)="desvincularBanco(userBank.id)">
+                  <mat-icon>link_off</mat-icon>
+                  Desvincular
+                </button>
+              </mat-card-actions>
+            </mat-card>
+          </div>
+        }
+      </div>
+    } @else {
+      <div class="empty-state text-center py-5">
+        <div class="empty-icon-wrapper">
+          <mat-icon class="empty-icon">account_balance_wallet</mat-icon>
+        </div>
+        <h4 class="empty-title">Nenhum vínculo encontrado</h4>
+        <p class="empty-text text-muted mb-4">
+          Você ainda não possui vínculos com instituições bancárias.
+        </p>
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="abrirModalVinculacao()"
+          class="empty-action-btn">
+          <mat-icon>add_circle</mat-icon>
+          Criar primeiro vínculo
+        </button>
+      </div>
+    }
+  </div>
+</div>

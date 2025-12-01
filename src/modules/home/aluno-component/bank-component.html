@@ -1,0 +1,133 @@
+<div class="bank-management-container">
+  <div class="header-section text-center mb-4">
+    <h1 class="page-title">Gestão de Bancos</h1>
+    <p class="page-subtitle text-muted">Cadastre e gerencie instituições bancárias no sistema</p>
+  </div>
+
+  <div class="form-section card shadow-sm mb-4">
+    <div class="card-body">
+      <form [formGroup]="form" (ngSubmit)="editing ? atualizarBanco() : adicionarBanco()">
+        <div class="row g-3 mb-3">
+          <div class="col-md-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Nome do Banco</mat-label>
+              <input matInput type="text" formControlName="name" placeholder="Ex: Banco do Brasil">
+              <mat-icon matSuffix>account_balance</mat-icon>
+              <mat-error *ngIf="form.get('name')?.hasError('required')">
+                Nome do banco é obrigatório
+              </mat-error>
+              <mat-error *ngIf="form.get('name')?.hasError('minlength')">
+                Mínimo de 3 caracteres
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Tipo do Banco</mat-label>
+              <mat-select formControlName="type">
+                <mat-option>Selecione um tipo</mat-option>
+                <mat-option *ngFor="let type of bankTypes" [value]="type">
+                  {{ type }}
+                </mat-option>
+              </mat-select>
+              <mat-icon matSuffix>business</mat-icon>
+              <mat-error *ngIf="form.get('type')?.hasError('required')">
+                Tipo do banco é obrigatório
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="text-center">
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            class="submit-btn"
+            [disabled]="form.invalid">
+            <mat-icon>{{ editing ? 'update' : 'add' }}</mat-icon>
+            {{ editing ? 'Atualizar Banco' : 'Adicionar Banco' }}
+          </button>
+
+          <button
+            *ngIf="editing"
+            mat-button
+            type="button"
+            class="ms-2"
+            (click)="resetForm()">
+            <mat-icon>close</mat-icon>
+            Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <div class="table-section card shadow-sm">
+    <div class="card-body">
+      @if (banks.length === 0) {
+        <div class="empty-state text-center py-5">
+          <mat-icon class="empty-icon">account_balance</mat-icon>
+          <h4 class="empty-title">Nenhum banco cadastrado</h4>
+          <p class="empty-text text-muted">
+            Comece adicionando o primeiro banco usando o formulário acima
+          </p>
+        </div>
+      } @else {
+        <div class="table-header d-flex justify-content-between align-items-center mb-3">
+          <h5 class="table-title mb-0">Bancos Cadastrados</h5>
+          <span class="badge bg-primary">{{ banks.length }} banco(s)</span>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table table-hover align-middle">
+            <thead class="table-light">
+              <tr>
+                <th width="80">ID</th>
+                <th>Nome</th>
+                <th>Tipo</th>
+                <th width="150" class="text-center">Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (bank of banks; track bank.id) {
+                <tr>
+                  <td class="fw-bold text-primary">#{{ bank.id }}</td>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <mat-icon class="me-2 text-primary">account_balance</mat-icon>
+                      <strong>{{ bank.name }}</strong>
+                    </div>
+                  </td>
+                  <td>
+                    <span class="badge bg-secondary">{{ bank.type }}</span>
+                  </td>
+                  <td>
+                    <div class="d-flex justify-content-center gap-1">
+                      <button
+                        mat-icon-button
+                        color="primary"
+                        (click)="editarBanco(bank)"
+                        matTooltip="Editar banco">
+                        <mat-icon>edit</mat-icon>
+                      </button>
+                      <button
+                        mat-icon-button
+                        color="warn"
+                        (click)="deletarBanco(bank)"
+                        matTooltip="Excluir banco">
+                        <mat-icon>delete</mat-icon>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+    </div>
+  </div>
+</div>
